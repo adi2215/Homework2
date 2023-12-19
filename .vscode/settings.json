@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "SuperBenboy.sln"
+    "dotnet.defaultSolution": "Homework2.sln"
 }

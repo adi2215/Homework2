@@ -12,10 +12,11 @@ public class CheckFlag : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            image.SetActive(true);
             player.GetComponent<PlayerMovement>().enabled = false;
             Invoke("NewScene", 1f);
         }
+        if (SceneManager.GetActiveScene().buildIndex == 2)
+            image.SetActive(true);
     }
 
     private void NewScene()

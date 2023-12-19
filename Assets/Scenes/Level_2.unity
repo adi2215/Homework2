@@ -5451,7 +5451,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   image: {fileID: 1667246600511334756}
   player: {fileID: 1746393774}
-  nextScene: 2
+  nextScene: 0
   nextLevel: {fileID: 4573189021089535806}
 --- !u!61 &972238020
 BoxCollider2D:
@@ -9573,7 +9573,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &3134852374116002460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9672,6 +9672,14 @@ PrefabInstance:
       propertyPath: jumpSound
       value: 
       objectReference: {fileID: 1746393781}
+    - target: {fileID: 7547994294606250761, guid: 71dfa14f9cfb14e41a5ef4a9085e91c6, type: 3}
+      propertyPath: mainPos.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7547994294606250761, guid: 71dfa14f9cfb14e41a5ef4a9085e91c6, type: 3}
+      propertyPath: mainPos.y
+      value: -3
+      objectReference: {fileID: 0}
     - target: {fileID: 7547994294606250761, guid: 71dfa14f9cfb14e41a5ef4a9085e91c6, type: 3}
       propertyPath: nextLevel
       value: 

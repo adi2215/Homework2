@@ -195,6 +195,7 @@ MonoBehaviour:
   jumpSound:
   - {fileID: 0}
   vel: {x: 0, y: 0}
+  position: {x: 0, y: 0}
   moveSpeed: 6
   wallSlideSpeed: 2
   jumpHeight: 4.65

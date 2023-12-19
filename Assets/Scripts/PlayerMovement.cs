@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,7 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioSource[] jumpSound;
     
     public Vector2 vel;
-    private Vector2 position;
+    public Vector2 position;
+    public Vector2 mainPos;
 
     private float inputAxis;
 
@@ -33,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     public bool running => Mathf.Abs(vel.x) > 0f || Mathf.Abs(inputAxis) > 0f;
     private bool _cachedQueryStartInColliders;
     private bool FacingRight = true;
+    private bool playerDie = false;
 
 
     private void Awake()
@@ -43,6 +46,42 @@ public class PlayerMovement : MonoBehaviour
         k_camera = Camera.main;
 
         _cachedQueryStartInColliders = Physics2D.queriesStartInColliders;
+    }
+
+    void OnEnable() => Load();
+
+    void OnDisable() => Save();
+
+    void Save()
+    {
+        var data = new DataGame("Boy", SceneManager.GetActiveScene().buildIndex, transform.position, playerDie);
+        var str = JsonUtility.ToJson(data);
+        Debug.Log(data.checkDie);
+
+        File.WriteAllText(Application.persistentDataPath + "/Data.json", str);
+    }
+
+    void Load()
+    {
+        if (File.Exists(Application.persistentDataPath + "/Data.json"))
+        {
+            var dataStr = File.ReadAllText(Application.persistentDataPath + "/Data.json");
+            var data = JsonUtility.FromJson<DataGame>(dataStr);
+            Debug.Log(data.PositionPlayer);
+
+            if (SceneManager.GetActiveScene().buildIndex == data.sceneID)
+            {
+                Debug.Log(data.checkDie);
+                if (!data.checkDie)
+                {
+                    transform.position = data.PositionPlayer;
+                }
+                else
+                {
+                    transform.position = mainPos;
+                }
+            }
+        }
     }
 
     private void Update()
@@ -185,6 +224,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void PlayerContact()
     {
+        playerDie = true;
         anim.Die();
         rb.bodyType = RigidbodyType2D.Static;
         enabled = false;
@@ -193,6 +233,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void NewScene()
     {
-        nextLevel.LoadLevel(1);
+        nextLevel.LoadLevel(SceneManager.GetActiveScene().buildIndex);
     }
 }
